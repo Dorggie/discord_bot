@@ -5,11 +5,11 @@ FROM python:3.8-slim
 RUN pip install --upgrade pip
 RUN pip install discord.py
 # 複製你的 Discord Python 程式到 Docker 容器內
-COPY dc.py /app/dc.py
+COPY dc_button.py /app/dc_button.py
 
 # 設定工作目錄
 WORKDIR /app
 
 # 執行你的 Discord Python 程式
-CMD ["python", "dc.py"]
+CMD ["python", "dc_button.py"]
 
