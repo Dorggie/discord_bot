@@ -98,4 +98,8 @@ async def on_ready():
 async def start_lottery(ctx):
     await ctx.send('RollTheDice 超級大改版：', view=LotteryButtons())
 
+@bot.command(name='piyan')
+async def piyan(ctx):
+    await ctx.send('方德霖素質真差 =_=')
+
 bot.run(TOKEN)
