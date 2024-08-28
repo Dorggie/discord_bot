@@ -8,7 +8,6 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 TOKEN = ''
-
 # 抽籤池列表
 lottery_pool = []
 
@@ -68,6 +67,14 @@ class LotteryButtons(discord.ui.View):
             await interaction.followup.send("超時未輸入，請再試一次。")
         await interaction.followup.send("RollTheDice 超級大改版：", view=LotteryButtons())
 
+    @discord.ui.button(label='<:anya_ok:1090611628782915684> List', style=discord.ButtonStyle.gray)
+    async def list_names(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if lottery_pool:
+            names = ', '.join(lottery_pool)
+            await interaction.response.send_message(f"目前抽籤池中的成員有：{names}")
+        else:
+            await interaction.response.send_message("抽籤池是空的！")
+
     @discord.ui.button(label='<:anya_sly:1090611657539067975> Roll', style=discord.ButtonStyle.blurple)
     async def draw_winner(self, interaction: discord.Interaction, button: discord.ui.Button):
         if lottery_pool:
@@ -79,7 +86,7 @@ class LotteryButtons(discord.ui.View):
             await interaction.response.send_message("目前是空的，抽了個寂寞 🚬")
         await interaction.followup.send("RollTheDice 超級大改版：", view=LotteryButtons())
 
-    @discord.ui.button(label='<:anya_cry:1090611620113289286> Add Me', style=discord.ButtonStyle.grey)
+    @discord.ui.button(label='<:anya_cry:1090611620113289286> Add Me', style=discord.ButtonStyle.green)
     async def add_me(self, interaction: discord.Interaction, button: discord.ui.Button):
         username = str(interaction.user)
         if username not in lottery_pool:
@@ -87,7 +94,7 @@ class LotteryButtons(discord.ui.View):
             await interaction.response.send_message(f"{username} 已加入！")
         else:
             await interaction.response.send_message(f"{username} 已經在裡面了 ==")
-        await show_lottery_pool(interaction)  # 顯示當前抽籤池
+        #await show_lottery_pool(interaction)  # 顯示當前抽籤池
         await interaction.followup.send("RollTheDice 超級大改版：", view=LotteryButtons())
 
 @bot.event
